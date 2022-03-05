@@ -2,9 +2,10 @@ package dev.betPawa.section5;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.List;
 
@@ -60,5 +61,17 @@ public class ListTest {
 		List listMock = mock(List.class);
 		when(listMock.subList(anyInt(), 2)).thenThrow(new RuntimeException());
 		listMock.get(0);
+	}
+
+
+	@Test
+	public void shouldTestGetMethod_UsingBDD() {
+		//Given
+		var listMock = mock(List.class);
+		given(listMock.get(anyInt())).willReturn("betPawa Senior Dev");
+		//When is the actual value listMock.get(2)
+
+		//Then
+		assertThat(listMock.get(2), is("betPawa Senior Dev"));
 	}
 }

@@ -1,5 +1,6 @@
 package dev.betpawa.testing;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
@@ -69,4 +70,10 @@ public class AssertTest {
     public void testEmptyListSize() {
         assertEquals(1, 0);
     }
+
+
+//    @Test
+//    public void randomTest() {
+//        assertThat(Arrays.asList(), CoreM);
+//    }
 }
