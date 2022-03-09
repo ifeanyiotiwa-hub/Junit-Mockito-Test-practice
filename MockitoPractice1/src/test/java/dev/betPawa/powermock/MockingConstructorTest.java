@@ -9,36 +9,33 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.when;
 
 
-
 @PrepareForTest({UtilityClass.class})
 @RunWith(PowerMockRunner.class)
-public class SystemUnderTestTest {
+public class MockingConstructorTest {
 
     @Mock
-    private Dependency dependency;
+    private ArrayList mockList;
 
     @InjectMocks
     private SystemUnderTest systemUnderTest;
 
     @Test
-    public void testStaticMethod() throws Exception {
-        List<Integer> stats = Arrays.asList(1, 2, 3, 4, 5);
-        stub(dependency.retrieveAllStarts()).toReturn(stats);
-        PowerMockito.mockStatic(UtilityClass.class);
+    public void testMockingConstructor() throws Exception {
+        PowerMockito.whenNew(ArrayList.class).withAnyArguments().thenReturn(mockList);
 
-        when(dependency.retrieveAllStarts()).thenReturn(stats);
-        when(UtilityClass.staticMethod(6)).thenReturn(150);
+        int size = systemUnderTest.methodUsingAnArrayListConstructor();
 
-        int result = systemUnderTest.methodCallingAStaticMethod();
-        assertEquals(154, result);
+        assertNotEquals(1, size);
     }
 
 }
